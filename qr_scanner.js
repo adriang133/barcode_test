@@ -189,6 +189,7 @@ export default class QrScanner {
             QrScanner._loadImage(imageOrFileOrUrl),
         ]).then(([engine, image]) => {
             qrEngine = engine;
+            let canvasContext;
             [canvas, canvasContext] = this._drawToCanvas(image, scanRegion, canvas, fixedCanvasSize);
 
             return new Promise((resolve, reject) => {
