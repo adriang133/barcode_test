@@ -83,7 +83,7 @@
         resultFormatElement.textContent = result.format;
         camQrResultTimestamp.textContent = new Date().toString();
         resultValueElement.style.color = 'teal';
-        clearTimeout(label.highlightTimeout);
+        clearTimeout(resultValueElement.highlightTimeout);
         resultValueElement.highlightTimeout = setTimeout(() => resultValueElement.style.color = 'inherit', 100);
 
     }
