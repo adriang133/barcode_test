@@ -92,7 +92,7 @@
 
     QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
 
-    const scanner = new QrScanner(video, result => setResult(camQrResult, result), error => {
+    const scanner = new QrScanner(video, result => setResult(camQrResult, camQrFormat, result), error => {
         camQrResult.textContent = error;
         camQrResult.style.color = 'inherit';
     });
