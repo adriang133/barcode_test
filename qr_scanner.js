@@ -198,7 +198,7 @@ export default class QrScanner {
                     if (!scanResults.length) {
                         reject(QrScanner.NO_QR_CODE_FOUND);
                     } else {
-                        resolve(scanResults[0].rawValue);
+                        resolve(scanResults[0]);
                     }
                 }).catch((e) => reject('Scanner error: ' + (e.message || e))).finally(() => clearTimeout(timeout));
             });
