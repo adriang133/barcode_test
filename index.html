@@ -64,6 +64,11 @@
 <b>Detected QR code: </b>
 <span id="file-qr-result">None</span>
 
+<div id="capture-hist">
+    <h3>Capture history</h3>
+    <div id="capture-hist-content"></div>
+</div>
+
 <script type="module">
     import QrScanner from "./qr_scanner.js";
 
@@ -77,15 +82,23 @@
     const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
     const fileSelector = document.getElementById('file-selector');
     const fileQrResult = document.getElementById('file-qr-result');
+    const captureHistContent = document.getElementById('capture-hist-content');
+    const captureHistory = {};
 
     function setResult(resultValueElement, resultFormatElement, result) {
         resultValueElement.textContent = result.rawValue;
         resultFormatElement.textContent = result.format;
-        camQrResultTimestamp.textContent = new Date().toString();
+        const timestamp = new Date().toString();
+        camQrResultTimestamp.textContent = timestamp;
         resultValueElement.style.color = 'teal';
         clearTimeout(resultValueElement.highlightTimeout);
         resultValueElement.highlightTimeout = setTimeout(() => resultValueElement.style.color = 'inherit', 100);
+        captureHistory[result.rawValue] = {
+            format: result.format,
+            timestamp,
+        }
 
+        captureHistContent.textContent = Object.entries(captureHistory).map(([rawVal, meta]) => `${rawVal} | ${meta.format} | ${meta.timestamp}`).join('\n');
     }
 
     // ####### Web Cam Scanning #######
