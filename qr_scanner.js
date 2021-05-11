@@ -217,7 +217,7 @@ export default class QrScanner {
         return Promise.resolve(new BarcodeDetector({ formats: ['ean_13', 'ean_8', 'upc_e'] }));
     }
 
-    _drawScanRegionBoundaries(ctx, x, y, width, height) {
+    static _drawScanRegionBoundaries(ctx, x, y, width, height) {
         ctx.beginPath();
         ctx.lineWidth="4";
         ctx.strokeStyle="red";
