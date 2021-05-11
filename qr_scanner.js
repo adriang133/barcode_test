@@ -217,8 +217,19 @@ export default class QrScanner {
         return Promise.resolve(new BarcodeDetector({ formats: ['ean_13', 'ean_8', 'upc_e'] }));
     }
 
+    _drawScanRegionBoundaries() {
+        const ctx = this.$video.getContext('2d');
+        ctx.beginPath();
+        ctx.lineWidth="4";
+        ctx.strokeStyle="red";
+        ctx.rect(this._scanRegion.x, this._scanRegion.y,
+            this._scanRegion.width, this._scanRegion.height);
+        ctx.stroke();
+    }
+
     _onPlay() {
         this._scanRegion = this._calculateScanRegion(this.$video);
+        this._drawScanRegionBoundaries();
         this._scanFrame();
     }
 
