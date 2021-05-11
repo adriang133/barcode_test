@@ -352,6 +352,8 @@ export default class QrScanner {
         //     canvas.width = scanRegion && scanRegion.downScaledWidth? scanRegion.downScaledWidth : scanRegionWidth;
         //     canvas.height = scanRegion && scanRegion.downScaledHeight? scanRegion.downScaledHeight : scanRegionHeight;
         // }
+        canvas.width = image.videoWidth;
+        canvas.height = image.videoHeight;
         const context = canvas.getContext('2d', { alpha: false });
         context.imageSmoothingEnabled = false; // gives less blurry images
         context.drawImage(
