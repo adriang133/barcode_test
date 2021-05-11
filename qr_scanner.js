@@ -217,19 +217,16 @@ export default class QrScanner {
         return Promise.resolve(new BarcodeDetector({ formats: ['ean_13', 'ean_8', 'upc_e'] }));
     }
 
-    _drawScanRegionBoundaries() {
-        const ctx = this.$video.getContext('2d');
+    _drawScanRegionBoundaries(ctx, x, y, width, height) {
         ctx.beginPath();
         ctx.lineWidth="4";
         ctx.strokeStyle="red";
-        ctx.rect(this._scanRegion.x, this._scanRegion.y,
-            this._scanRegion.width, this._scanRegion.height);
+        ctx.rect(x, y, width, height);
         ctx.stroke();
     }
 
     _onPlay() {
         this._scanRegion = this._calculateScanRegion(this.$video);
-        this._drawScanRegionBoundaries();
         this._scanFrame();
     }
 
@@ -359,9 +356,10 @@ export default class QrScanner {
         context.imageSmoothingEnabled = false; // gives less blurry images
         context.drawImage(
             image,
-            scanRegionX, scanRegionY, scanRegionWidth, scanRegionHeight,
+            // scanRegionX, scanRegionY, scanRegionWidth, scanRegionHeight,
             0, 0, canvas.width, canvas.height
         );
+        this._drawScanRegionBoundaries(context, scanRegionX, scanRegionY, scanRegionWidth, scanRegionHeight);
         return [canvas, context];
     }
 
