@@ -218,11 +218,14 @@ export default class QrScanner {
     }
 
     static _drawScanRegionBoundaries(ctx, x, y, width, height) {
-        ctx.beginPath();
-        ctx.lineWidth="4";
-        ctx.strokeStyle="red";
-        ctx.rect(x, y, width, height);
-        ctx.stroke();
+        const fullHeight = ctx.canvas.height;
+        const fullWidth = ctx.canvas.width;
+
+        ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+        ctx.fillRect(0, 0, fullWidth, y);  // top
+        ctx.fillRect(0, y, (fullWidth - width) / 2, height); // left
+        ctx.fillRect(x + width, y, (fullWidth - width) / 2, height); // right
+        ctx.fillRect(0, y + height, fullWidth, (fullHeight - height) / 2); // bottom
     }
 
     _onPlay() {
